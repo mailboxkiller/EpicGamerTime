@@ -29,6 +29,9 @@ public class BlockFacingBase extends BlockBase {
     }
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
+        if(context.getPlayer().isCrouching()){
+            return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing());
+        }
         return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
     @Override

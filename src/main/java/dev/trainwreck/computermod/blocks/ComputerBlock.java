@@ -23,11 +23,6 @@ public class ComputerBlock extends BlockTileBase {
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
-    @Override
-    public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-        //System.out.println(world.isRemote());
 
-        //TileComputer tileComputer = (TileComputer) world.getTileEntity(pos);
-        //tileComputer.updateTiles(neighbor);
-    }
+
 }
