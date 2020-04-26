@@ -15,6 +15,8 @@ public class ComputerBlock extends BlockTileBase {
         this.setItemGroup(ItemGroup.REDSTONE);
     }
 
+
+
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         TileComputer tileComputer = (TileComputer) worldIn.getTileEntity(currentPos);

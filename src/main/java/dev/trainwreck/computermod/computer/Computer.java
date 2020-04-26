@@ -5,7 +5,7 @@ import dev.trainwreck.computermod.computer.apis.ITask;
 import dev.trainwreck.computermod.computer.javascript.IJavaScriptMashine;
 
 public class Computer {
-    public static final String[] s_sideNames = new String[] {
+    public static final String[] sideNames = new String[] {
             "bottom", "top", "back", "front", "right", "left",
     };
 
