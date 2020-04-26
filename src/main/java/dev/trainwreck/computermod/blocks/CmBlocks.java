@@ -3,6 +3,7 @@ package dev.trainwreck.computermod.blocks;
 import dev.trainwreck.computermod.items.BlockItemBase;
 import dev.trainwreck.computermod.registry.RegistrationHelper;
 import dev.trainwreck.computermod.tileentity.TileComputer;
+import dev.trainwreck.computermod.tileentity.TileTest;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
@@ -13,7 +14,7 @@ import java.util.function.Supplier;
 
 public enum CmBlocks {
     COMPUTER_BLOCK(new ComputerBlock(), null, TileComputer::new),
-    TEST_BLOCK(new BlockBase(Block.Properties.create(Material.PISTON),"test"),null,null); //TODO: Remove block
+    TEST_BLOCK(new BlockTileBase(Block.Properties.create(Material.PISTON),"test"),null, TileTest::new); //TODO: Remove block
 
     private BlockBase block;
     private BlockItemBase blockitem;
