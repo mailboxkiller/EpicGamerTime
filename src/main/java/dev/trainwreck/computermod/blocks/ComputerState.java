@@ -18,8 +18,7 @@ public enum ComputerState implements IStringSerializable {
         return this.name;
     }
 
-    @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 }

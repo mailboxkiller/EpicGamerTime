@@ -1,5 +1,7 @@
 package dev.trainwreck.computermod;
 
+import dev.trainwreck.computermod.blocks.ComputerState;
+import net.minecraft.state.EnumProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
