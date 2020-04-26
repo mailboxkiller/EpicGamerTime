@@ -1,0 +1,25 @@
+{
+    "parent": "block/block",
+	"textures": {
+		"face": "cm:block/computer_face",
+		"side": "cm:block/computer_side_end",
+		"back": "cm:block/computer_side_end",
+		"fan": "cm:block/computer_side_fan",
+		"fancy_side": "cm:block/computer_side_glass",
+		"bottom": "cm:block/computer_side_end"
+	},
+    "elements": [
+        {
+		"from": [ 0, 0, 0 ],
+		"to": [ 16, 16, 16 ],
+           "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#bottom" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#fan", "rotation": 270 },
+                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#face" },
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#back" },
+                "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#fan", "rotation": 180 },
+                "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#fancy_side" }
+				}
+		}
+    ]
+}
