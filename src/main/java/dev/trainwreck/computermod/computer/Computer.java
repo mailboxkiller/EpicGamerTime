@@ -1,5 +1,6 @@
 package dev.trainwreck.computermod.computer;
 
+import dev.trainwreck.computermod.blocks.ComputerState;
 import dev.trainwreck.computermod.computer.apis.IAPIEnvironment;
 import dev.trainwreck.computermod.computer.apis.ITask;
 import dev.trainwreck.computermod.computer.javascript.IJavaScriptMashine;
@@ -9,17 +10,10 @@ public class Computer {
             "bottom", "top", "back", "front", "right", "left",
     };
 
-    private enum State
-    {
-        Off,
-        Starting,
-        Running,
-        Stopping,
-    }
 
     private int ticksSinceStart;
     private boolean startRequested;
-    private State state;
+    private ComputerState state;
     private boolean blinking;
 
     private final APIEnvironment m_apiEnvironment;
@@ -39,7 +33,7 @@ public class Computer {
 
         ticksSinceStart = -1;
         startRequested = false;
-        state = State.Off;
+        state = ComputerState.Off;
         blinking = false;
 
         m_apiEnvironment = new APIEnvironment(this);
@@ -60,7 +54,7 @@ public class Computer {
     {
         synchronized( this )
         {
-            return state == State.Running;
+            return state == ComputerState.Running;
         }
     }
 
@@ -68,7 +62,7 @@ public class Computer {
     {
         synchronized( this )
         {
-            if( state != State.Off && machine != null )
+            if( state != ComputerState.Off && machine != null )
             {
                 if( hard )
                 {
@@ -84,10 +78,10 @@ public class Computer {
 
     public void startComputer(){
         synchronized( this ) {
-            if (state != State.Off) {
+            if (state != ComputerState.Off) {
                 return;
             }
-            state = State.Starting;
+            state = ComputerState.Starting;
             ticksSinceStart = 0;
         }
 
@@ -100,7 +94,7 @@ public class Computer {
 
             @Override
             public void execute() {
-                state = State.Running;
+                state = ComputerState.Running;
                 System.out.println("computer Started");
             }
         },computer);
@@ -109,11 +103,11 @@ public class Computer {
     public void stopComputer(final boolean reboot){
         synchronized( this )
         {
-            if( state != State.Running )
+            if( state != ComputerState.Running )
             {
                 return;
             }
-            state = State.Stopping;
+            state = ComputerState.Stopping;
         }
         final Computer computer = this;
         ComputerThread.queueTask(new ITask() {
@@ -124,11 +118,11 @@ public class Computer {
 
             @Override
             public void execute() {
-                if( state != State.Stopping )
+                if( state != ComputerState.Stopping )
                 {
                     return;
                 }
-                state = State.Off;
+                state = ComputerState.Off;
 
             }
         },computer);
@@ -136,7 +130,7 @@ public class Computer {
     }
 
 
-    public State getState() {
+    public ComputerState getState() {
         return state;
     }
 
