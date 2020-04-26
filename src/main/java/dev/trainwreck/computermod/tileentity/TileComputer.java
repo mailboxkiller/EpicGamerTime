@@ -19,15 +19,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileComputer extends TileEntityBase implements ITickableTileEntity {
-    private ComputerNetwork network = new ComputerNetwork(world);
+    private ComputerNetwork network = new ComputerNetwork();
 
     public TileComputer() {
         super(CmTileEntitys.COMPUTER_TE.getTileType(CmBlocks.COMPUTER_BLOCK.getBlock()));
 
     }
 
-    public void updateTiles(BlockPos pos){
-        network.addBlockTileEntitys(pos);
+    public void updateTiles(BlockPos tilePos){
+        if(world.getTileEntity(tilePos) == null){
+            network.removeBlockTileEntitys(tilePos);
+        }else{
+            network.addBlockTileEntitys(tilePos, this.world);
+        }
+        if(!world.isRemote){
+            System.out.println("server "+network.getTileEntities().size());
+        }
+        if(world.isRemote){
+            System.out.println("client "+network.getTileEntities().size());
+        }
+
     }
 
     @Override

@@ -8,23 +8,28 @@ import java.util.ArrayList;
 
 public class ComputerNetwork {
     private ArrayList<TileBlockInfo> tileEntities = new ArrayList<>();
-    private World world;
 
-    public ComputerNetwork(World world) {
-        this.world = world;
+    public ComputerNetwork() {
     }
 
-    public void addBlockTileEntitys(BlockPos pos){
+    public void addBlockTileEntitys(BlockPos pos, World world){
         tileEntities.add(new TileBlockInfo(world.getTileEntity(pos), pos));
     }
     public void removeBlockTileEntitys(BlockPos pos){
-        tileEntities.forEach((entity)->{
-            if(entity.pos == pos){
-                tileEntities.remove(entity);
+        int i = 0;
+
+        for (TileBlockInfo info:tileEntities) {
+            if(info.getPos().equals(pos)){
+                tileEntities.remove(i);
+                return;
             }
-        });
+            i++;
+        }
     }
 
+    public ArrayList<TileBlockInfo> getTileEntities() {
+        return tileEntities;
+    }
 
     class TileBlockInfo{
         private TileEntity entity;
