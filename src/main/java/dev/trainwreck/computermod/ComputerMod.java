@@ -2,6 +2,7 @@ package dev.trainwreck.computermod;
 
 import dev.trainwreck.computermod.blocks.CmBlocks;
 import dev.trainwreck.computermod.blocks.ComputerBlock;
+import dev.trainwreck.computermod.items.CmItems;
 import dev.trainwreck.computermod.registry.RegistrationHelper;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -42,6 +43,7 @@ public class ComputerMod
 
         RegistrationHelper registrationHelper = new RegistrationHelper();
         CmBlocks.RegisterBlocks(registrationHelper);
+        CmItems.RegisterItems(registrationHelper);
 
         LOGGER.info("-------------------"+ new ComputerBlock().getInternalID());
 

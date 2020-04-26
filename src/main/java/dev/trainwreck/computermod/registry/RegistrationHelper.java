@@ -4,6 +4,7 @@ import dev.trainwreck.computermod.Reference;
 import dev.trainwreck.computermod.blocks.BlockBase;
 import dev.trainwreck.computermod.blocks.BlockTileBase;
 import dev.trainwreck.computermod.items.BlockItemBase;
+import dev.trainwreck.computermod.items.ItemBase;
 import dev.trainwreck.computermod.tileentity.CmTileEntitys;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -40,6 +41,10 @@ public class RegistrationHelper {
         blockIn.setTileEntityType(tileEntitys.getTileType(blockIn));
         TILES.register(blockIn.getInternalID(), () -> tileEntitys.getTileType(blockIn));
     }
+    public void RegisterItem(ItemBase itemIn){
+        ITEMS.register(itemIn.getInternalName(), () -> itemIn);
+    }
+
 
     public RegistrationHelper() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
