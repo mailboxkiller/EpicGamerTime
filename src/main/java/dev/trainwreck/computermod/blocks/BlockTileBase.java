@@ -7,7 +7,7 @@ import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
-public class BlockTileBase extends BlockBase {
+public class BlockTileBase extends BlockFacingBase {
     private TileEntityType<?> tileEntityType;
 
     public BlockTileBase(Properties properties, String internalID) {
@@ -33,4 +33,5 @@ public class BlockTileBase extends BlockBase {
     public boolean hasTileEntity(BlockState state) {
         return true;
     }
+
 }
