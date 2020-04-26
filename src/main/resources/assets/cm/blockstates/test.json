@@ -1,0 +1,8 @@
+{
+    "variants": {
+		"facing=north": { "model": "cm:block/test" },
+        "facing=south": { "model": "cm:block/test" },
+        "facing=west":  { "model": "cm:block/test" },
+        "facing=east":  { "model": "cm:block/test" }
+    }
+}

@@ -14,6 +14,6 @@ public class TileTest extends TileEntityBase implements ITickableTileEntity {
 
     @Override
     public void tick() {
-        Reference.LOGGER.debug("Annoying debug message");  //TODO: to be removed
+        Reference.LOGGER.debug("Annoying debug message " + getPos());  //TODO: to be removed
     }
 }
