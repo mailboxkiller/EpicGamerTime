@@ -1,7 +1,6 @@
 package dev.trainwreck.computermod;
 
 import dev.trainwreck.computermod.blocks.CmBlocks;
-import dev.trainwreck.computermod.blocks.ComputerBlock;
 import dev.trainwreck.computermod.items.CmItems;
 import dev.trainwreck.computermod.registry.RegistrationHelper;
 import net.minecraft.block.Blocks;
@@ -15,8 +14,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.stream.Collectors;
 

@@ -1,25 +1,14 @@
 package dev.trainwreck.computermod.tileentity;
 
 import dev.trainwreck.computermod.blocks.CmBlocks;
-import dev.trainwreck.computermod.computer.ComputerNetwork;
-import dev.trainwreck.computermod.computer.ProcessThread;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import dev.trainwreck.computermod.computer.Computer;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 public class TileComputer extends TileEntityBase implements ITickableTileEntity {
-    private ComputerNetwork network = new ComputerNetwork();
+    private Computer computer = new Computer();
 
     public TileComputer() {
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
@@ -27,18 +16,8 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
     }
 
     public void updateTiles(BlockPos tilePos){
-        if(world.getTileEntity(tilePos) == null){
-            network.removeBlockTileEntitys(tilePos);
-        }else{
-            network.addBlockTileEntitys(tilePos, this.world);
-        }
-        if(!world.isRemote){
-            System.out.println("server "+network.getTileEntities().size());
-        }
-        if(world.isRemote){
-            System.out.println("client "+network.getTileEntities().size());
-        }
 
+        computer.startComputer();
     }
 
     @Override
