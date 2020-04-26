@@ -22,7 +22,7 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
     private ComputerNetwork network = new ComputerNetwork();
 
     public TileComputer() {
-        super(CmTileEntitys.COMPUTER_TE.getTileType(CmBlocks.COMPUTER_BLOCK.getBlock()));
+        super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
 
     }
 

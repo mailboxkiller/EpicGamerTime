@@ -5,7 +5,6 @@ import dev.trainwreck.computermod.blocks.BlockBase;
 import dev.trainwreck.computermod.blocks.BlockTileBase;
 import dev.trainwreck.computermod.items.BlockItemBase;
 import dev.trainwreck.computermod.items.ItemBase;
-import dev.trainwreck.computermod.tileentity.CmTileEntitys;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -29,17 +28,17 @@ public class RegistrationHelper {
         BLOCKS.register(blockIn.getInternalID(), () -> blockIn);
         ITEMS.register(blockIn.getInternalID(), () -> itemBase);
     }
-    public void RegisterTileBlock(BlockTileBase blockIn, CmTileEntitys tileEntitys){
+    public void RegisterTileBlock(BlockTileBase blockIn, TileEntityType<?> tileEntitys){
         BLOCKS.register(blockIn.getInternalID(), () -> blockIn);
         ITEMS.register(blockIn.getInternalID(), () -> new BlockItem(blockIn, new Item.Properties().group(blockIn.getItemGroup())));
-        blockIn.setTileEntityType(tileEntitys.getTileType(blockIn));
-        TILES.register(blockIn.getInternalID(), () -> tileEntitys.getTileType(blockIn));
+        blockIn.setTileEntityType(tileEntitys);
+        TILES.register(blockIn.getInternalID(), () -> tileEntitys);
     }
-    public void RegisterTileBlock(BlockTileBase blockIn, BlockItemBase itemBase, CmTileEntitys tileEntitys){
+    public void RegisterTileBlock(BlockTileBase blockIn, BlockItemBase itemBase, TileEntityType<?> tileEntitys){
         BLOCKS.register(blockIn.getInternalID(), () -> blockIn);
         ITEMS.register(blockIn.getInternalID(), () -> itemBase);
-        blockIn.setTileEntityType(tileEntitys.getTileType(blockIn));
-        TILES.register(blockIn.getInternalID(), () -> tileEntitys.getTileType(blockIn));
+        blockIn.setTileEntityType(tileEntitys);
+        TILES.register(blockIn.getInternalID(), () -> tileEntitys);
     }
     public void RegisterItem(ItemBase itemIn){
         ITEMS.register(itemIn.getInternalName(), () -> itemIn);

@@ -1,21 +1,13 @@
 package dev.trainwreck.computermod.blocks;
 
-import dev.trainwreck.computermod.tileentity.CmTileEntitys;
 import dev.trainwreck.computermod.tileentity.TileComputer;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public class ComputerBlock extends BlockTileBase {
     public ComputerBlock() {
