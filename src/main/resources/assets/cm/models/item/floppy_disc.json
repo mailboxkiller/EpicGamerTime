@@ -1,6 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "cm:item/floppy_disc"
+        "layer0": "cm:item/floppy_disc_dye_layer",
+		"layer1": "cm:item/floppy_disc"
     }
 }
