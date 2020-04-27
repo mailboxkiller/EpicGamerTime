@@ -11,8 +11,11 @@ import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+
+import javax.annotation.Nullable;
 
 public class ComputerBlock extends BlockTileBase {
     public static final EnumProperty<ComputerState> COMPUTER_STATE = EnumProperty.create("computer", ComputerState.class);
@@ -23,7 +26,10 @@ public class ComputerBlock extends BlockTileBase {
         this.setDefaultState(this.stateContainer.getBaseState().with(COMPUTER_STATE, ComputerState.Off));
     }
 
-
+    @Override
+    public boolean canConnectRedstone(BlockState state, IBlockReader world, BlockPos pos, @Nullable Direction side) {
+        return true;
+    }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {

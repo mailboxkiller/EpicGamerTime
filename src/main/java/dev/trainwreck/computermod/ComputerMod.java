@@ -1,7 +1,6 @@
 package dev.trainwreck.computermod;
 
 import dev.trainwreck.computermod.blocks.CmBlocks;
-import dev.trainwreck.computermod.computer.apis.RedstoneAPI;
 import dev.trainwreck.computermod.items.CmItems;
 import dev.trainwreck.computermod.registry.RegistrationHelper;
 import net.minecraft.block.Blocks;
@@ -16,9 +15,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file

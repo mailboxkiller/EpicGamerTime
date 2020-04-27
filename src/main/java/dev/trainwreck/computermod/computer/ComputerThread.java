@@ -126,6 +126,7 @@ public class ComputerThread {
             }
         }, "Computer Dispatch Thread");
 
+        System.out.println(thread.getName());
         thread.setDaemon(true);
         thread.start();
         running = true;
