@@ -1,8 +1,22 @@
 {
-    "variants": {
-		"facing=north": { "model": "cm:block/computer" },
-        "facing=south": { "model": "cm:block/computer", "y": 180 },
-        "facing=west":  { "model": "cm:block/computer", "y": 270 },
-        "facing=east":  { "model": "cm:block/computer", "y": 90 }
-    }
+	"comment__": "If the new vanilla system is so 'smart', why is everything in vanilla done in the most convoluted way possible?",
+	"variants": {
+		"computer=off,facing=north": { "model": "cm:block/computer", "y": 0 },
+		"computer=off,facing=south": { "model": "cm:block/computer", "y": 180 },
+		"computer=off,facing=west":  { "model": "cm:block/computer", "y": 270 },
+		"computer=off,facing=east":  { "model": "cm:block/computer", "y": 90 },
+		"computer=starting,facing=north": { "model": "cm:block/computer_running", "y": 0 },
+		"computer=starting,facing=south": { "model": "cm:block/computer_running", "y": 180 },
+		"computer=starting,facing=west":  { "model": "cm:block/computer_running", "y": 270 },
+		"computer=starting,facing=east":  { "model": "cm:block/computer_running", "y": 90 },
+		"computer=running,facing=north": { "model": "cm:block/computer_on", "y": 0 },
+		"computer=running,facing=south": { "model": "cm:block/computer_on", "y": 180 },
+		"computer=running,facing=west":  { "model": "cm:block/computer_on", "y": 270 },
+		"computer=running,facing=east":  { "model": "cm:block/computer_on", "y": 90 },
+		"computer=stopping,facing=north": { "model": "cm:block/computer_running", "y": 0 },
+		"computer=stopping,facing=south": { "model": "cm:block/computer_running", "y": 180 },
+		"computer=stopping,facing=west":  { "model": "cm:block/computer_running", "y": 270 },
+		"computer=stopping,facing=east":  { "model": "cm:block/computer_running", "y": 90 }
+			
+	}
 }

@@ -1,12 +1,12 @@
 {
     "parent": "block/block",
 	"textures": {
-		"particle": "cm:block/computer_glass_off",
-		"face": "cm:block/computer_face_off",
+		"particle": "cm:block/computer_glass_on",
+		"face": "cm:block/computer_face_running",
 		"side": "cm:block/computer_end",
 		"back": "cm:block/computer_back",
-		"fan": "cm:block/computer_fan_off",
-		"fancy_side": "cm:block/computer_glass_off",
+		"fan": "cm:block/computer_fan_on",
+		"fancy_side": "cm:block/computer_glass_on",
 		"bottom": "cm:block/computer_bottom"
 	},
     "elements": [
