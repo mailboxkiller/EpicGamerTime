@@ -44,7 +44,9 @@ public class ComputerBlock extends BlockTileBase {
             correctedSide = correctedSide.rotateYCCW();
         if(facing == Direction.WEST)
             correctedSide = correctedSide.rotateY();
-
+        if(side == Direction.UP || side == Direction.DOWN)
+            correctedSide = correctedSide.getOpposite();
+        System.out.println(side);
 
         return computer.getRedstoneOutput(correctedSide.getIndex());
     }
