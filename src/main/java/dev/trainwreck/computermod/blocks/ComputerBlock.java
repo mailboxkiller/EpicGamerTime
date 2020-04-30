@@ -27,6 +27,34 @@ public class ComputerBlock extends BlockTileBase {
     }
 
     @Override
+    public int getStrongPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
+        return getWeakPower(blockState, blockAccess, pos, side);
+    }
+
+    @Override
+    public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
+        TileComputer tileComputer= (TileComputer) blockAccess.getTileEntity(pos);
+        Computer computer = tileComputer.getComputer();
+        Direction facing = blockState.get(FACING);
+        Direction correctedSide = side;
+
+        if(facing == Direction.SOUTH)
+            correctedSide = correctedSide.getOpposite();
+        if(facing == Direction.EAST)
+            correctedSide = correctedSide.rotateYCCW();
+        if(facing == Direction.WEST)
+            correctedSide = correctedSide.rotateY();
+
+
+        return computer.getRedstoneOutput(correctedSide.getIndex());
+    }
+
+    @Override
+    public boolean canProvidePower(BlockState state) {
+        return true;
+    }
+
+    @Override
     public boolean canConnectRedstone(BlockState state, IBlockReader world, BlockPos pos, @Nullable Direction side) {
         return true;
     }
