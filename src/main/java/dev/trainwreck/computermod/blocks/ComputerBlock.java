@@ -38,15 +38,15 @@ public class ComputerBlock extends BlockTileBase {
         Direction facing = blockState.get(FACING);
         Direction correctedSide = side;
 
-        if(facing == Direction.SOUTH)
-            correctedSide = correctedSide.getOpposite();
-        if(facing == Direction.EAST)
-            correctedSide = correctedSide.rotateYCCW();
-        if(facing == Direction.WEST)
-            correctedSide = correctedSide.rotateY();
-        if(side == Direction.UP || side == Direction.DOWN)
-            correctedSide = correctedSide.getOpposite();
-        System.out.println(side);
+        if(!(side == Direction.UP) && !(side == Direction.DOWN)){
+            if(facing == Direction.SOUTH)
+                correctedSide = correctedSide.getOpposite();
+            if(facing == Direction.EAST)
+                correctedSide = correctedSide.rotateYCCW();
+            if(facing == Direction.WEST)
+                correctedSide = correctedSide.rotateY();
+        }
+
 
         return computer.getRedstoneOutput(correctedSide.getIndex());
     }

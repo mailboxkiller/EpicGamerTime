@@ -4,7 +4,7 @@ import dev.trainwreck.computermod.tileentity.TileEntityBase;
 
 public class Computer {
     public static final String[] sideNames = new String[] {
-            "bottom", "top", "back", "front", "right", "left",
+            "top", "bottom", "back", "front", "right", "left",
     };
 
     private TileEntityBase tile;
