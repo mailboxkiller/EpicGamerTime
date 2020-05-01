@@ -1,5 +1,6 @@
 package dev.trainwreck.computermod.tileentity;
 
+import dev.trainwreck.computermod.api.javascript.BaseJavaScriptAPI;
 import dev.trainwreck.computermod.api.redstone.RedstoneAPI;
 import dev.trainwreck.computermod.blocks.CmBlocks;
 import dev.trainwreck.computermod.computer.Computer;
@@ -14,8 +15,9 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
     public TileComputer() {
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
         test.addApi(new RedstoneAPI());
+        test.addApi(new BaseJavaScriptAPI(computer));
         test.setProgram(
-                "var side = \"bottom\";"+
+                "var side = \"front\";"+
                 "if(RedstoneAPI.getOutput(side)==15){"+
                 "RedstoneAPI.setOutput(side,false);" +
                 "}else{"+
@@ -25,23 +27,14 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
     }
 
     public void updateTiles(BlockPos tilePos){
-        /*test.setProgram("if(RedstoneAPI.getOutput(\"back\")==15){"+
-                            "RedstoneAPI.setOutput(\"back\",false);" +
-                        "}else{"+
-                            "RedstoneAPI.setOutput(\"back\",true);" +
-                        "}"+
-                        "print(RedstoneAPI.getOutput(\"back\"))");*/
-        //test.runProgram();
+
     }
 
-    int i = 0;
     @Override
     public void tick() {
-        i++;
-        if(i > 10){
-            test.runProgram();
+        test.runProgram();
+        if(computer.isDirty()){
             this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
-            i = 0;
         }
     }
     public Computer getComputer() {
