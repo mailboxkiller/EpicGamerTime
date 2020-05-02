@@ -14,24 +14,24 @@ import net.minecraft.util.math.BlockPos;
 import static de.esoco.coroutine.step.CodeExecution.run;
 
 public class TileComputer extends TileEntityBase implements ITickableTileEntity {
-    private Computer computer = new Computer(this);
+    private volatile Computer computer = new Computer(this);
 
 
     public TileComputer() {
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
         computer.getProgram().addApi(new RedstoneAPI());
         computer.getProgram().setProgram(
-                "//setTimeout(500);"+
                 "var side = \"front\";"+
                 "if(RedstoneAPI.getOutput(side)==15){"+
-                "RedstoneAPI.setOutput(side,false);" +
+                "   RedstoneAPI.setOutput(side,false);" +
                 "}else{"+
-                "RedstoneAPI.setOutput(side,true);" +
-                "}");
+                "   RedstoneAPI.setOutput(side,true);" +
+                "}" +
+                "setTimeout(500);" );
     }
 
     public void updateTiles(BlockPos tilePos){
-
+        computer.startComputer();
     }
 
     @Override

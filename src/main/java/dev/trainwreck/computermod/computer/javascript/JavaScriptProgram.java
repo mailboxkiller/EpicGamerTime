@@ -1,7 +1,9 @@
 package dev.trainwreck.computermod.computer.javascript;
 
+import de.esoco.coroutine.Continuation;
 import de.esoco.coroutine.Coroutine;
 import de.esoco.coroutine.CoroutineScope;
+import de.esoco.coroutine.step.Condition;
 import de.esoco.coroutine.step.Delay;
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
 import dev.trainwreck.computermod.computer.Computer;
@@ -17,8 +19,14 @@ public class JavaScriptProgram {
     private ScriptEngine engine = new ScriptEngineManager().getEngineByName("javascript");
     private ArrayList<IJavaScriptAPI> apis = new ArrayList<>();
     private JavaScriptWriter stringWriter = new JavaScriptWriter();
+
+    private Coroutine<?, ?> script = Coroutine.first(run(() -> {
+        runProgram();
+    }));
+    private Continuation programState = null;
+
     private String program;
-    private Coroutine<?, ?> crunchNumbers = Coroutine.first(run(() -> { runProgram();}));
+
 
     public JavaScriptProgram(Computer computer) {
         this.computer = computer;
@@ -33,7 +41,9 @@ public class JavaScriptProgram {
     }
 
     public void startProgram(){
-        CoroutineScope.launch(scope -> {crunchNumbers.runAsync(scope);});
+        if(programState == null || programState.isFinished()){
+            CoroutineScope.launch(scope -> {programState = script.runAsync(scope);});
+        }
     }
 
     private void runProgram(){
@@ -43,7 +53,7 @@ public class JavaScriptProgram {
                 System.out.println(test);
             }
             stringWriter.clear();
-        }catch (ScriptException e){
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -55,10 +65,16 @@ public class JavaScriptProgram {
 
     }
 
-    private class SetTimeout implements Function<Long,Boolean> {
-        public Boolean apply(Long barr) {
-            Delay.sleep(barr);
-            return true;
+    private class SetTimeout implements Function<Integer,Boolean> {
+
+        public Boolean apply(Integer barr) {
+            try {
+                Thread.sleep(500);
+                return true;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
