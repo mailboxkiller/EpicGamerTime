@@ -21,7 +21,7 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
         computer.getProgram().addApi(new RedstoneAPI());
         computer.getProgram().setProgram(
-                "setTimeout(500);"+
+                "//setTimeout(500);"+
                 "var side = \"front\";"+
                 "if(RedstoneAPI.getOutput(side)==15){"+
                 "RedstoneAPI.setOutput(side,false);" +
