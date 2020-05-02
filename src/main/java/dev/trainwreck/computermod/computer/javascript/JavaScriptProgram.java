@@ -23,6 +23,7 @@ public class JavaScriptProgram {
 
     public void setProgram(String program) {
         this.program = program;
+        
     }
 
     public void runProgram(){
