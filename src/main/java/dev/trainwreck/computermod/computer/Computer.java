@@ -58,6 +58,10 @@ public class Computer {
         return dirty;
     }
 
+    public ComputerState getComputerState() {
+        return computerState;
+    }
+
     public JavaScriptProgram getProgram() {
         return program;
     }
