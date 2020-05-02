@@ -32,11 +32,11 @@ public class Computer {
                synchronized (this){
                    program.startProgram();
                }
-               try {
+/*               try {
                    Thread.sleep(1);
                } catch (InterruptedException e) {
                    e.printStackTrace();
-               }
+               }*/
            }
         });
         computerThread.start();

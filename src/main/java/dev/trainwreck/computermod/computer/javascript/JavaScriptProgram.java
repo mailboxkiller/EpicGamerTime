@@ -69,7 +69,7 @@ public class JavaScriptProgram {
 
         public Boolean apply(Integer barr) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(barr);
                 return true;
             } catch (InterruptedException e) {
                 e.printStackTrace();
