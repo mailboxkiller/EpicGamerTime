@@ -1,11 +1,10 @@
 package dev.trainwreck.computermod.computer.javascript;
 
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
+import dev.trainwreck.computermod.api.javascript.SetTimeout;
 import dev.trainwreck.computermod.computer.Computer;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import javax.script.*;
 import java.util.ArrayList;
 
 public class JavaScriptProgram {
@@ -18,6 +17,7 @@ public class JavaScriptProgram {
     public JavaScriptProgram(Computer computer) {
         this.computer = computer;
         engine.getContext().setWriter(stringWriter);
+        engine.put("setTimeout", new SetTimeout());
     }
 
 

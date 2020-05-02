@@ -1,6 +1,5 @@
 package dev.trainwreck.computermod.tileentity;
 
-import dev.trainwreck.computermod.api.javascript.BaseJavaScriptAPI;
 import dev.trainwreck.computermod.api.redstone.RedstoneAPI;
 import dev.trainwreck.computermod.blocks.CmBlocks;
 import dev.trainwreck.computermod.computer.Computer;
@@ -15,7 +14,6 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
     public TileComputer() {
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
         test.addApi(new RedstoneAPI());
-        test.addApi(new BaseJavaScriptAPI(computer));
         test.setProgram(
                 "var side = \"front\";"+
                 "if(RedstoneAPI.getOutput(side)==15){"+
@@ -23,7 +21,7 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
                 "}else{"+
                 "RedstoneAPI.setOutput(side,true);" +
                 "}"+
-                "//print(RedstoneAPI.getOutput())");
+                "setTimeout(10);");
     }
 
     public void updateTiles(BlockPos tilePos){
