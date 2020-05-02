@@ -1,11 +1,16 @@
 package dev.trainwreck.computermod.computer.javascript;
 
+import de.esoco.coroutine.Coroutine;
+import de.esoco.coroutine.CoroutineScope;
+import de.esoco.coroutine.step.Delay;
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
-import dev.trainwreck.computermod.api.javascript.SetTimeout;
 import dev.trainwreck.computermod.computer.Computer;
 
 import javax.script.*;
 import java.util.ArrayList;
+import java.util.function.Function;
+
+import static de.esoco.coroutine.step.CodeExecution.run;
 
 public class JavaScriptProgram {
     private Computer computer;
@@ -13,6 +18,7 @@ public class JavaScriptProgram {
     private ArrayList<IJavaScriptAPI> apis = new ArrayList<>();
     private JavaScriptWriter stringWriter = new JavaScriptWriter();
     private String program;
+    private Coroutine<?, ?> crunchNumbers = Coroutine.first(run(() -> { runProgram();}));
 
     public JavaScriptProgram(Computer computer) {
         this.computer = computer;
@@ -23,10 +29,14 @@ public class JavaScriptProgram {
 
     public void setProgram(String program) {
         this.program = program;
-        
+
     }
 
-    public void runProgram(){
+    public void startProgram(){
+        CoroutineScope.launch(scope -> {crunchNumbers.runAsync(scope);});
+    }
+
+    private void runProgram(){
         try {
             engine.eval(program);
             for (String test: stringWriter.getOutputs()) {
@@ -45,6 +55,12 @@ public class JavaScriptProgram {
 
     }
 
+    private class SetTimeout implements Function<Long,Boolean> {
+        public Boolean apply(Long barr) {
+            Delay.sleep(barr);
+            return true;
+        }
+    }
 
 
 }

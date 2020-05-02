@@ -1,8 +1,13 @@
 package dev.trainwreck.computermod.computer;
 
+import dev.trainwreck.computermod.computer.javascript.JavaScriptProgram;
 import dev.trainwreck.computermod.tileentity.TileEntityBase;
 
 public class Computer {
+    private JavaScriptProgram program = new JavaScriptProgram(this);
+
+
+
     public static final String[] sideNames = new String[] {
             "top", "bottom", "back", "front", "right", "left",
     };
@@ -27,6 +32,10 @@ public class Computer {
 
     public boolean isDirty() {
         return dirty;
+    }
+
+    public JavaScriptProgram getProgram() {
+        return program;
     }
 
     public void abort(boolean hard){
