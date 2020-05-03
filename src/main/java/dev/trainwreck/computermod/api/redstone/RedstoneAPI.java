@@ -18,10 +18,17 @@ public class RedstoneAPI implements IJavaScriptAPI {
     public void setOutput(String side, boolean state){
         computer.setRedstoneOutput(getSide(side),state ? 15 : 0);
     }
+    public void setAnalogOutput(String side, int state){
+        computer.setRedstoneOutput(getSide(side),state);
+    }
 
     public boolean getInput(String side){
         return computer.getRedstoneInput(getSide(side)) > 0;
     }
+    public int getAnalogInput(String side){
+        return computer.getRedstoneInput(getSide(side));
+    }
+
 
     public int getOutput(int side){
         return computer.getRedstoneOutput(side);

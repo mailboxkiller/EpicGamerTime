@@ -18,7 +18,9 @@ public class Computer {
     private TileEntityBase tile;
     private int[] redstoneOutput = new int[6];
     private int[] redstoneInput = new int[6];
+
     private boolean dirty = false;
+    private boolean onTick = false;
 
     public static final String[] sideNames = new String[] {
             "top", "bottom", "back", "front", "right", "left",
@@ -41,14 +43,17 @@ public class Computer {
                        computerThread = null;
                        return;
                    }
-                   program.startProgram();
+                   program.runProgram();
+                   if (onTick){
+                       program.runProgramOnTick();
+                       onTick = false;
+                   }
                }
            }
         });
         computerThread.start();
         computerState = ComputerState.Running;
     }
-
 
     public void setRedstoneOutput(int side, int value) {
         redstoneOutput[side] = value;
@@ -74,21 +79,6 @@ public class Computer {
         }
     }
 
-    public int getRedstoneInput(int side) {
-        return redstoneInput[side];
-    }
-
-    public boolean isDirty() {
-        return dirty;
-    }
-
-    public ComputerState getComputerState() {
-        return computerState;
-    }
-
-    public JavaScriptProgram getProgram() {
-        return program;
-    }
 
     public void abort(boolean hard){
         if(hard){
@@ -112,4 +102,23 @@ public class Computer {
         return correctedSide;
     }
 
+    public int getRedstoneInput(int side) {
+        return redstoneInput[side];
+    }
+
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public ComputerState getComputerState() {
+        return computerState;
+    }
+
+    public JavaScriptProgram getProgram() {
+        return program;
+    }
+
+    public void setOnTick(boolean onTick) {
+        this.onTick = onTick;
+    }
 }

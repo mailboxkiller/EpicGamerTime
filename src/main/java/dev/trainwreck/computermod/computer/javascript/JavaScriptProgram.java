@@ -2,6 +2,7 @@ package dev.trainwreck.computermod.computer.javascript;
 
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
 import dev.trainwreck.computermod.computer.Computer;
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import javax.script.*;
 import java.util.ArrayList;
@@ -10,7 +11,9 @@ import java.util.function.Function;
 
 public class JavaScriptProgram {
     private Computer computer;
-    private ScriptEngine engine = new ScriptEngineManager().getEngineByName("javascript");
+
+    private ScriptEngine engine = new NashornScriptEngineFactory().getScriptEngine("-strict", "--no-java", "--no-syntax-extensions");
+
     private CompiledScript compiledScript;
     private ArrayList<IJavaScriptAPI> apis = new ArrayList<>();
     private JavaScriptWriter stringWriter = new JavaScriptWriter();
@@ -30,18 +33,19 @@ public class JavaScriptProgram {
 
     public void setProgram(String program) {
         this.program = program;
-
-    }
-
-
-    public void startProgram(){
-        isFinished = false;
-        runProgram();
-    }
-
-    private void runProgram(){
         try {
-            engine.eval(program);
+            compiledScript = ((Compilable) engine).compile(program);
+            compiledScript.eval();
+            stringWriter.clear();
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void runProgramOnTick(){
+        isFinished = false;
+        try {
             ((Invocable) engine).invokeFunction("onTick");
             for (String test: stringWriter.getOutputs()) {
                 System.out.println(test);
@@ -51,6 +55,23 @@ public class JavaScriptProgram {
             e.printStackTrace();
         }catch (NoSuchMethodException e){
 
+        }
+        isFinished = true;
+    }
+
+    public void runProgram(){
+        isFinished = false;
+        try {
+            //System.out.println(func);
+            ((Invocable) engine).invokeFunction("main");
+            ((Invocable) engine).invokeFunction("onTick");
+            for (String test: stringWriter.getOutputs()) {
+                System.out.println(test);
+            }
+            stringWriter.clear();
+        }catch (ScriptException e){
+            e.printStackTrace();
+        }catch (NoSuchMethodException e){
         }
         isFinished = true;
     }

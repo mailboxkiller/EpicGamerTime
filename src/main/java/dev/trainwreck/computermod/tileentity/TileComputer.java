@@ -13,19 +13,14 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
     public TileComputer() {
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
         computer.getProgram().addApi(new RedstoneAPI());
-/*        computer.getProgram().setProgram(
-                "var side = \"front\";"+
-                "if(RedstoneAPI.getOutput(side)==15){"+
-                "   RedstoneAPI.setOutput(side,false);" +
-                "}else{"+
-                "   RedstoneAPI.setOutput(side,true);" +
-                "}" +
-                "setTimeout(500);" );*/
         computer.getProgram().setProgram(
-                "if(RedstoneAPI.getInput(\"left\")){" +
-                "   RedstoneAPI.setOutput(\"right\",false);" +
-                "}else{" +
-                "   RedstoneAPI.setOutput(\"right\",true);" +
+                ""+
+                "function onTick(){"+
+                "   if(RedstoneAPI.getInput(\"left\")){" +
+                "        RedstoneAPI.setOutput(\"right\",false);" +
+                "   }else{" +
+                "       RedstoneAPI.setOutput(\"right\",true);" +
+                "   }" +
                 "}");
 
     }
@@ -42,9 +37,11 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
 
     @Override
     public void tick() {
+        if (world.isRemote)return;
         if(computer.isDirty()){
             this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
         }
+        computer.setOnTick(true);
         computer.updateRedstoneInput();
     }
     public Computer getComputer() {
