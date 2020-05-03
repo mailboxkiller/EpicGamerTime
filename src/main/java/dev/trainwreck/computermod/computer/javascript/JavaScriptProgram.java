@@ -3,14 +3,15 @@ package dev.trainwreck.computermod.computer.javascript;
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
 import dev.trainwreck.computermod.computer.Computer;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
+import javax.script.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class JavaScriptProgram {
     private Computer computer;
     private ScriptEngine engine = new ScriptEngineManager().getEngineByName("javascript");
+    private CompiledScript compiledScript;
     private ArrayList<IJavaScriptAPI> apis = new ArrayList<>();
     private JavaScriptWriter stringWriter = new JavaScriptWriter();
 
@@ -23,6 +24,7 @@ public class JavaScriptProgram {
         this.computer = computer;
         engine.getContext().setWriter(stringWriter);
         engine.put("setTimeout", new SetTimeout());
+        engine.put("getSide", new GetSide());
     }
 
 
@@ -40,15 +42,17 @@ public class JavaScriptProgram {
     private void runProgram(){
         try {
             engine.eval(program);
+            ((Invocable) engine).invokeFunction("onTick");
             for (String test: stringWriter.getOutputs()) {
                 System.out.println(test);
             }
             stringWriter.clear();
-        }catch (Exception e){
+        }catch (ScriptException e){
             e.printStackTrace();
+        }catch (NoSuchMethodException e){
+
         }
         isFinished = true;
-
     }
 
     public void addApi(IJavaScriptAPI javaScriptAPI){
@@ -59,7 +63,6 @@ public class JavaScriptProgram {
     }
 
     private class SetTimeout implements Function<Integer,Boolean> {
-
         public Boolean apply(Integer barr) {
             try {
                 Thread.sleep(barr);
@@ -67,6 +70,12 @@ public class JavaScriptProgram {
             } catch (InterruptedException e) {
                 return false;
             }
+        }
+    }
+
+    private class GetSide implements Function<String,Integer> {
+        public Integer apply(String side) {
+            return Arrays.asList(Computer.sideNames).indexOf(side);
         }
     }
 

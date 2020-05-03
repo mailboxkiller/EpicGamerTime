@@ -11,7 +11,7 @@ public class RedstoneAPI implements IJavaScriptAPI {
 
     private Computer computer;
 
-    public int getSide(String side){
+    private int getSide(String side){
         return Arrays.asList(Computer.sideNames).indexOf(side);
     }
 
