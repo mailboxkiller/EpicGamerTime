@@ -1,18 +1,12 @@
 package dev.trainwreck.computermod.computer.javascript;
 
-import de.esoco.coroutine.Continuation;
-import de.esoco.coroutine.Coroutine;
-import de.esoco.coroutine.CoroutineScope;
-import de.esoco.coroutine.step.Condition;
-import de.esoco.coroutine.step.Delay;
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
 import dev.trainwreck.computermod.computer.Computer;
 
-import javax.script.*;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.util.ArrayList;
 import java.util.function.Function;
-
-import static de.esoco.coroutine.step.CodeExecution.run;
 
 public class JavaScriptProgram {
     private Computer computer;
@@ -20,10 +14,7 @@ public class JavaScriptProgram {
     private ArrayList<IJavaScriptAPI> apis = new ArrayList<>();
     private JavaScriptWriter stringWriter = new JavaScriptWriter();
 
-    private Coroutine<?, ?> script = Coroutine.first(run(() -> {
-        runProgram();
-    }));
-    private Continuation programState = null;
+    private boolean isFinished = true;
 
     private String program;
 
@@ -40,10 +31,10 @@ public class JavaScriptProgram {
 
     }
 
+
     public void startProgram(){
-        if(programState == null || programState.isFinished()){
-            CoroutineScope.launch(scope -> {programState = script.runAsync(scope);});
-        }
+        isFinished = false;
+        runProgram();
     }
 
     private void runProgram(){
@@ -56,6 +47,8 @@ public class JavaScriptProgram {
         }catch (Exception e){
             e.printStackTrace();
         }
+        isFinished = true;
+
     }
 
     public void addApi(IJavaScriptAPI javaScriptAPI){
@@ -72,7 +65,6 @@ public class JavaScriptProgram {
                 Thread.sleep(barr);
                 return true;
             } catch (InterruptedException e) {
-                e.printStackTrace();
                 return false;
             }
         }

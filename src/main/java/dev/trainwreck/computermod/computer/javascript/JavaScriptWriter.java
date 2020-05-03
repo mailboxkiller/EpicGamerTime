@@ -1,8 +1,5 @@
 package dev.trainwreck.computermod.computer.javascript;
 
-import dev.trainwreck.computermod.Reference;
-import io.netty.handler.codec.http2.StreamByteDistributor;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;

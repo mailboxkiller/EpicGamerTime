@@ -1,6 +1,5 @@
 package dev.trainwreck.computermod.blocks;
 
-import dev.trainwreck.computermod.Reference;
 import dev.trainwreck.computermod.computer.Computer;
 import dev.trainwreck.computermod.tileentity.TileComputer;
 import net.minecraft.block.Block;
@@ -13,7 +12,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -27,6 +26,17 @@ public class ComputerBlock extends BlockTileBase {
     }
 
     @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            TileComputer tileComputer = (TileComputer) worldIn.getTileEntity(pos);
+            Computer computer = tileComputer.getComputer();
+            computer.abort(true);
+
+            super.onReplaced(state, worldIn, pos, newState, isMoving);
+        }
+    }
+
+    @Override
     public int getStrongPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
         return getWeakPower(blockState, blockAccess, pos, side);
     }
@@ -35,18 +45,8 @@ public class ComputerBlock extends BlockTileBase {
     public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
         TileComputer tileComputer= (TileComputer) blockAccess.getTileEntity(pos);
         Computer computer = tileComputer.getComputer();
-        Direction facing = blockState.get(FACING);
-        Direction correctedSide = side;
 
-        if(!(side == Direction.UP) && !(side == Direction.DOWN)){
-            if(facing == Direction.SOUTH)
-                correctedSide = correctedSide.getOpposite();
-            if(facing == Direction.EAST)
-                correctedSide = correctedSide.rotateYCCW();
-            if(facing == Direction.WEST)
-                correctedSide = correctedSide.rotateY();
-        }
-
+        Direction correctedSide = computer.getCorrectedSide(side);
 
         return computer.getRedstoneOutput(correctedSide.getIndex());
     }

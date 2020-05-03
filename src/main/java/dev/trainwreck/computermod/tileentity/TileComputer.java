@@ -1,17 +1,10 @@
 package dev.trainwreck.computermod.tileentity;
 
-import de.esoco.coroutine.Coroutine;
-import de.esoco.coroutine.CoroutineScope;
-import de.esoco.coroutine.step.Loop;
-import de.esoco.lib.datatype.Range;
 import dev.trainwreck.computermod.api.redstone.RedstoneAPI;
 import dev.trainwreck.computermod.blocks.CmBlocks;
 import dev.trainwreck.computermod.computer.Computer;
-import dev.trainwreck.computermod.computer.javascript.JavaScriptProgram;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
-
-import static de.esoco.coroutine.step.CodeExecution.run;
 
 public class TileComputer extends TileEntityBase implements ITickableTileEntity {
     private volatile Computer computer = new Computer(this);
@@ -20,18 +13,31 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
     public TileComputer() {
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType());
         computer.getProgram().addApi(new RedstoneAPI());
-        computer.getProgram().setProgram(
+/*        computer.getProgram().setProgram(
                 "var side = \"front\";"+
                 "if(RedstoneAPI.getOutput(side)==15){"+
                 "   RedstoneAPI.setOutput(side,false);" +
                 "}else{"+
                 "   RedstoneAPI.setOutput(side,true);" +
                 "}" +
-                "setTimeout(500);" );
+                "setTimeout(500);" );*/
+        computer.getProgram().setProgram(
+                "if(RedstoneAPI.getInput(\"left\")){" +
+                "   RedstoneAPI.setOutput(\"right\",false);" +
+                "}else{" +
+                "   RedstoneAPI.setOutput(\"right\",true);" +
+                "}");
+
+    }
+
+    @Override
+    public void onLoad() {
+        if(!world.isRemote){
+            computer.startComputer();
+        }
     }
 
     public void updateTiles(BlockPos tilePos){
-        computer.startComputer();
     }
 
     @Override
@@ -39,6 +45,7 @@ public class TileComputer extends TileEntityBase implements ITickableTileEntity 
         if(computer.isDirty()){
             this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
         }
+        computer.updateRedstoneInput();
     }
     public Computer getComputer() {
         return computer;

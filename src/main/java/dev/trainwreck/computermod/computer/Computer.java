@@ -3,22 +3,26 @@ package dev.trainwreck.computermod.computer;
 import dev.trainwreck.computermod.blocks.ComputerState;
 import dev.trainwreck.computermod.computer.javascript.JavaScriptProgram;
 import dev.trainwreck.computermod.tileentity.TileEntityBase;
-
-import java.util.ArrayList;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.RedstoneWireBlock;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 
 public class Computer {
     private JavaScriptProgram program = new JavaScriptProgram(this);
     private Thread computerThread = null;
     private ComputerState computerState = ComputerState.Off;
 
+    private TileEntityBase tile;
+    private int[] redstoneOutput = new int[6];
+    private int[] redstoneInput = new int[6];
+    private boolean dirty = false;
 
     public static final String[] sideNames = new String[] {
             "top", "bottom", "back", "front", "right", "left",
     };
-
-    private TileEntityBase tile;
-    private int[] redstoneOutput = new int[6];
-    private boolean dirty = false;
 
     public Computer(TileEntityBase tile){
         this.tile = tile;
@@ -27,16 +31,18 @@ public class Computer {
     public void startComputer(){
         if(!(computerState == ComputerState.Off))return;
 
+        computerState = ComputerState.Starting;
+
         computerThread = new Thread(() ->{
            while (true){
                synchronized (this){
+                   if(computerState == ComputerState.Stopping){
+                       computerState = ComputerState.Off;
+                       computerThread = null;
+                       return;
+                   }
                    program.startProgram();
                }
-/*               try {
-                   Thread.sleep(1);
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               }*/
            }
         });
         computerThread.start();
@@ -54,6 +60,24 @@ public class Computer {
         return redstoneOutput[clamped];
     }
 
+    public void updateRedstoneInput(){
+        for (Direction dir : Direction.values()) {
+            Direction side = getCorrectedSide(dir);
+            BlockPos blockpos = tile.getPos().offset(side);
+            int i = tile.getWorld().getRedstonePower(blockpos, side);
+            if (i >= 15) {
+                redstoneInput[dir.getIndex()] = i;
+            } else {
+                BlockState blockstate = tile.getWorld().getBlockState(blockpos);
+                redstoneInput[dir.getIndex()] = Math.max(i, blockstate.getBlock() == Blocks.REDSTONE_WIRE ? blockstate.get(RedstoneWireBlock.POWER) : 0);
+            }
+        }
+    }
+
+    public int getRedstoneInput(int side) {
+        return redstoneInput[side];
+    }
+
     public boolean isDirty() {
         return dirty;
     }
@@ -67,7 +91,25 @@ public class Computer {
     }
 
     public void abort(boolean hard){
+        if(hard){
+            computerState = ComputerState.Stopping;
+            computerThread.interrupt();
+        }
+    }
 
+    public Direction getCorrectedSide(Direction side){
+        Direction facing = tile.getBlockState().get(HorizontalBlock.HORIZONTAL_FACING);
+        Direction correctedSide = side;
+
+        if(!(side == Direction.UP) && !(side == Direction.DOWN)){
+            if(facing == Direction.SOUTH)
+                correctedSide = correctedSide.getOpposite();
+            if(facing == Direction.EAST)
+                correctedSide = correctedSide.rotateYCCW();
+            if(facing == Direction.WEST)
+                correctedSide = correctedSide.rotateY();
+        }
+        return correctedSide;
     }
 
 }

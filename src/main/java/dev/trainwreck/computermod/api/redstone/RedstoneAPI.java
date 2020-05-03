@@ -3,7 +3,6 @@ package dev.trainwreck.computermod.api.redstone;
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
 import dev.trainwreck.computermod.computer.Computer;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +17,10 @@ public class RedstoneAPI implements IJavaScriptAPI {
 
     public void setOutput(String side, boolean state){
         computer.setRedstoneOutput(getSide(side),state ? 15 : 0);
+    }
+
+    public boolean getInput(String side){
+        return computer.getRedstoneInput(getSide(side)) > 0;
     }
 
     public int getOutput(int side){
