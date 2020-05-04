@@ -1,9 +1,6 @@
 package dev.trainwreck.computermod.common.tileentity;
 
-import com.sun.java.accessibility.util.GUIInitializedListener;
 import dev.trainwreck.computermod.common.blocks.BlockBase;
-import dev.trainwreck.computermod.common.contaner.ContainerBase;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;

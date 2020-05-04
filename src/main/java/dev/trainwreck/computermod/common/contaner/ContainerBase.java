@@ -1,12 +1,10 @@
 package dev.trainwreck.computermod.common.contaner;
 
 import dev.trainwreck.computermod.common.registry.RegistrationHelper;
-import dev.trainwreck.computermod.common.tileentity.TileEntityBase;
 import dev.trainwreck.computermod.common.tileentity.TileEntityUIBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -14,9 +12,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.Objects;
 
 public class ContainerBase extends Container {
 

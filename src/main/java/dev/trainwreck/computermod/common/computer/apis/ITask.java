@@ -1,6 +1,6 @@
-package dev.trainwreck.computermod.computer.apis;
+package dev.trainwreck.computermod.common.computer.apis;
 
-import dev.trainwreck.computermod.computer.Computer;
+import dev.trainwreck.computermod.common.computer.Computer;
 
 public interface ITask {
     Computer getComputer();

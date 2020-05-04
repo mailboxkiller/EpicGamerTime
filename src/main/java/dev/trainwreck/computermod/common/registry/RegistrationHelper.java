@@ -4,10 +4,8 @@ import dev.trainwreck.computermod.Reference;
 import dev.trainwreck.computermod.common.blocks.BlockBase;
 import dev.trainwreck.computermod.common.blocks.BlockTileBase;
 import dev.trainwreck.computermod.common.contaner.ComputerContainer;
-import dev.trainwreck.computermod.common.contaner.ContainerBase;
 import dev.trainwreck.computermod.common.items.BlockItemBase;
 import dev.trainwreck.computermod.common.items.ItemBase;
-import dev.trainwreck.computermod.common.tileentity.TileEntityBase;
 import dev.trainwreck.computermod.common.tileentity.TileEntityUIBase;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
@@ -18,8 +16,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.ArrayList;
 
 
 public class RegistrationHelper {
