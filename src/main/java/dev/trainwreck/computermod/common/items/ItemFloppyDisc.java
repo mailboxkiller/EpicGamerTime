@@ -1,4 +1,4 @@
-package dev.trainwreck.computermod.items;
+package dev.trainwreck.computermod.common.items;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

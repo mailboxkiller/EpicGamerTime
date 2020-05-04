@@ -1,18 +1,25 @@
-package dev.trainwreck.computermod.blocks;
+package dev.trainwreck.computermod.common.blocks;
 
-import dev.trainwreck.computermod.computer.Computer;
-import dev.trainwreck.computermod.tileentity.TileComputer;
+import dev.trainwreck.computermod.common.computer.Computer;
+import dev.trainwreck.computermod.common.computer.ComputerState;
+import dev.trainwreck.computermod.common.tileentity.TileComputer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -23,6 +30,17 @@ public class ComputerBlock extends BlockTileBase {
         super(Properties.create(Material.PISTON), "computer");
         this.setItemGroup(ItemGroup.REDSTONE);
         this.setDefaultState(this.stateContainer.getBaseState().with(COMPUTER_STATE, ComputerState.Off));
+    }
+
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_) {
+        if(!worldIn.isRemote){
+            TileComputer tileComputer= (TileComputer) worldIn.getTileEntity(pos);
+            NetworkHooks.openGui((ServerPlayerEntity) player, tileComputer, pos);
+            return ActionResultType.SUCCESS;
+        }
+
+        return ActionResultType.FAIL;
     }
 
     @Override

@@ -1,12 +1,20 @@
 package dev.trainwreck.computermod;
 
-import dev.trainwreck.computermod.blocks.CmBlocks;
-import dev.trainwreck.computermod.items.CmItems;
-import dev.trainwreck.computermod.registry.RegistrationHelper;
+import dev.trainwreck.computermod.client.gui.ComputerGui;
+import dev.trainwreck.computermod.common.blocks.CmBlocks;
+import dev.trainwreck.computermod.common.contaner.ComputerContainer;
+import dev.trainwreck.computermod.common.contaner.ContainerBase;
+import dev.trainwreck.computermod.common.items.CmItems;
+import dev.trainwreck.computermod.common.registry.RegistrationHelper;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -53,7 +61,10 @@ public class ComputerMod
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        Reference.LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+
+
+        ScreenManager.registerFactory(RegistrationHelper.getContainerType(), ComputerGui::new);
+
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

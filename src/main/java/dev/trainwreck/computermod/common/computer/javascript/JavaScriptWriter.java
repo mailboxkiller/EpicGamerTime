@@ -1,4 +1,4 @@
-package dev.trainwreck.computermod.computer.javascript;
+package dev.trainwreck.computermod.common.computer.javascript;
 
 import java.io.IOException;
 import java.io.Writer;

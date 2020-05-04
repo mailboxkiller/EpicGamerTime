@@ -1,7 +1,7 @@
-package dev.trainwreck.computermod.tileentity;
+package dev.trainwreck.computermod.common.tileentity;
 
 import dev.trainwreck.computermod.Reference;
-import dev.trainwreck.computermod.blocks.CmBlocks;
+import dev.trainwreck.computermod.common.blocks.CmBlocks;
 import net.minecraft.tileentity.ITickableTileEntity;
 
 public class TileTest extends TileEntityBase implements ITickableTileEntity {

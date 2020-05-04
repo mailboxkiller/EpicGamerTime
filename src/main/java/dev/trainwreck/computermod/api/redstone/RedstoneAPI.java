@@ -1,7 +1,7 @@
 package dev.trainwreck.computermod.api.redstone;
 
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
-import dev.trainwreck.computermod.computer.Computer;
+import dev.trainwreck.computermod.common.computer.Computer;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

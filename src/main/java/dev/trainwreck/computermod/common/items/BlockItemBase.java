@@ -1,4 +1,4 @@
-package dev.trainwreck.computermod.items;
+package dev.trainwreck.computermod.common.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;

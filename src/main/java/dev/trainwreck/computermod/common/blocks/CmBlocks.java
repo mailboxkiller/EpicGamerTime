@@ -1,9 +1,9 @@
-package dev.trainwreck.computermod.blocks;
+package dev.trainwreck.computermod.common.blocks;
 
-import dev.trainwreck.computermod.items.BlockItemBase;
-import dev.trainwreck.computermod.registry.RegistrationHelper;
-import dev.trainwreck.computermod.tileentity.TileComputer;
-import dev.trainwreck.computermod.tileentity.TileTest;
+import dev.trainwreck.computermod.common.items.BlockItemBase;
+import dev.trainwreck.computermod.common.registry.RegistrationHelper;
+import dev.trainwreck.computermod.common.tileentity.TileComputer;
+import dev.trainwreck.computermod.common.tileentity.TileTest;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;

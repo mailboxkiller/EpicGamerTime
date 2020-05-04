@@ -1,12 +1,11 @@
-package dev.trainwreck.computermod.computer;
+package dev.trainwreck.computermod.common.computer;
 
-import dev.trainwreck.computermod.blocks.ComputerState;
-import dev.trainwreck.computermod.computer.javascript.JavaScriptProgram;
-import dev.trainwreck.computermod.tileentity.TileEntityBase;
+import dev.trainwreck.computermod.common.computer.javascript.JavaScriptProgram;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.RedstoneWireBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
@@ -15,7 +14,7 @@ public class Computer {
     private Thread computerThread = null;
     private ComputerState computerState = ComputerState.Off;
 
-    private TileEntityBase tile;
+    private TileEntity tile;
     private int[] redstoneOutput = new int[6];
     private int[] redstoneInput = new int[6];
 
@@ -26,7 +25,7 @@ public class Computer {
             "top", "bottom", "back", "front", "right", "left",
     };
 
-    public Computer(TileEntityBase tile){
+    public Computer(TileEntity tile){
         this.tile = tile;
     }
 

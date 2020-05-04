@@ -1,6 +1,6 @@
-package dev.trainwreck.computermod.items;
+package dev.trainwreck.computermod.common.items;
 
-import dev.trainwreck.computermod.registry.RegistrationHelper;
+import dev.trainwreck.computermod.common.registry.RegistrationHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 

@@ -1,4 +1,4 @@
-package dev.trainwreck.computermod.blocks;
+package dev.trainwreck.computermod.common.computer;
 
 import net.minecraft.util.IStringSerializable;
 

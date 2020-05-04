@@ -1,7 +1,7 @@
-package dev.trainwreck.computermod.computer.javascript;
+package dev.trainwreck.computermod.common.computer.javascript;
 
 import dev.trainwreck.computermod.api.javascript.IJavaScriptAPI;
-import dev.trainwreck.computermod.computer.Computer;
+import dev.trainwreck.computermod.common.computer.Computer;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import javax.script.*;

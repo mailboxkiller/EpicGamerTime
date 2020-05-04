@@ -1,6 +1,6 @@
 package dev.trainwreck.computermod.api.javascript;
 
-import dev.trainwreck.computermod.computer.Computer;
+import dev.trainwreck.computermod.common.computer.Computer;
 
 public interface IJavaScriptAPI {
     Computer getComputer();

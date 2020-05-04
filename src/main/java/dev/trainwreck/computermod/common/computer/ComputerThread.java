@@ -1,7 +1,7 @@
-package dev.trainwreck.computermod.computer;
+package dev.trainwreck.computermod.common.computer;
 
 import dev.trainwreck.computermod.Reference;
-import dev.trainwreck.computermod.computer.apis.ITask;
+import dev.trainwreck.computermod.common.computer.apis.ITask;
 
 import java.util.ArrayList;
 import java.util.Iterator;
