@@ -57,7 +57,7 @@ public class ComputerMod
         // do something that can only be done on the client
 
 
-        ScreenManager.registerFactory(RegistrationHelper.getContainerType(), ComputerGui::new);
+        ScreenManager.registerFactory(RegistrationHelper.ComputerContainer.get(), ComputerGui::new);
 
     }
 

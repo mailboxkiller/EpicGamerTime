@@ -10,9 +10,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ComputerGui extends ContainerScreen<ComputerContainer> {
 
+    private ComputerContainer container;
 
     public ComputerGui(ComputerContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        this.container = screenContainer;
     }
 
     @Override
@@ -23,8 +25,8 @@ public class ComputerGui extends ContainerScreen<ComputerContainer> {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        this.font.drawString(this.title.getFormattedText(), 8.0f, 6.0f, 4210752);
-        this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 8.0f, 90.0f, 4210752);
+        this.font.drawString(container.getStoredTileEntity().getComputer().getProgram().getProgram(), 8.0f, 6.0f, 4210752);
+        //this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 8.0f, 90.0f, 4210752);
     }
 
 

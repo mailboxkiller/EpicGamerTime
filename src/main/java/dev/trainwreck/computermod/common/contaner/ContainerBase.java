@@ -15,12 +15,12 @@ import javax.annotation.Nonnull;
 
 public class ContainerBase extends Container {
 
-    private TileEntityUIBase tileEntity;
+    protected TileEntityUIBase tileEntity;
     private IWorldPosCallable canInteractWithCallable;
     private boolean hasPlayerInventory = false;
 
     public ContainerBase(final int windowID, final PlayerInventory playerInventory, final TileEntityUIBase tileEntity){
-        super(RegistrationHelper.getContainerType(), windowID);
+        super(RegistrationHelper.ComputerContainer.get(), windowID);
         this.tileEntity = tileEntity;
         this.canInteractWithCallable = IWorldPosCallable.of(tileEntity.getWorld(),tileEntity.getPos());
     }

@@ -18,12 +18,12 @@ public class TileComputer extends TileEntityUIBase implements ITickableTileEntit
         computer.getProgram().addApi(new RedstoneAPI());
         computer.getProgram().setProgram(
                 ""+
-                "function onTick(){"+
-                "   if(RedstoneAPI.getInput(\"left\")){" +
-                "        RedstoneAPI.setOutput(\"right\",false);" +
-                "   }else{" +
-                "       RedstoneAPI.setOutput(\"right\",true);" +
-                "   }" +
+                "function onTick(){\n"+
+                "   if(RedstoneAPI.getInput(\"left\")){\n" +
+                "        RedstoneAPI.setOutput(\"right\",false);\n" +
+                "   }else{\n" +
+                "       RedstoneAPI.setOutput(\"right\",true);\n" +
+                "   }\n" +
                 "}");
 
     }

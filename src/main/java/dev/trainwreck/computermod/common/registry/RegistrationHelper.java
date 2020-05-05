@@ -12,6 +12,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -24,7 +25,6 @@ public class RegistrationHelper {
     private static final DeferredRegister<TileEntityType<?>> TILES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, Reference.MOD_ID);
     private static final DeferredRegister<ContainerType<?>> CONTAINER_TYPES = new DeferredRegister<>(ForgeRegistries.CONTAINERS, Reference.MOD_ID);
 
-    private static RegistryObject<ContainerType<?>> containerTypes = null;
 
     public void RegisterBlock(BlockBase blockIn){
          BLOCKS.register(blockIn.getInternalID(), () -> blockIn);
@@ -40,11 +40,6 @@ public class RegistrationHelper {
         blockIn.setTileEntityType(tileEntitys);
         TILES.register(blockIn.getInternalID(), () -> tileEntitys);
 
-        if(tileEntitys.create() instanceof TileEntityUIBase){
-            TileEntityUIBase tile = (TileEntityUIBase) tileEntitys.create();
-            if(tile.getContainerType() == null)return;
-             containerTypes = CONTAINER_TYPES.register(blockIn.getInternalID(), ()->tile.getContainerType());
-        }
     }
     public void RegisterTileBlock(BlockTileBase blockIn, BlockItemBase itemBase, TileEntityType<?> tileEntitys){
         BLOCKS.register(blockIn.getInternalID(), () -> blockIn);
@@ -52,19 +47,14 @@ public class RegistrationHelper {
         blockIn.setTileEntityType(tileEntitys);
         TILES.register(blockIn.getInternalID(), () -> tileEntitys);
 
-        if(tileEntitys.create() instanceof TileEntityUIBase){
-            TileEntityUIBase tile = (TileEntityUIBase) tileEntitys.create();
-            if(tile.getContainerType() == null)return;
-            CONTAINER_TYPES.register(blockIn.getInternalID(), ()->tile.getContainerType());
-        }
+
     }
     public void RegisterItem(ItemBase itemIn){
         ITEMS.register(itemIn.getInternalName(), () -> itemIn);
     }
 
-    public static ContainerType<ComputerContainer> getContainerType() {
-        return (ContainerType<ComputerContainer>) containerTypes.get();
-    }
+    public static final RegistryObject<ContainerType<ComputerContainer>> ComputerContainer = CONTAINER_TYPES.register("computer", ()-> IForgeContainerType.create(ComputerContainer::new));
+
 
     public RegistrationHelper() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());

@@ -22,7 +22,6 @@ public class JavaScriptProgram {
 
     private String program;
 
-
     public JavaScriptProgram(Computer computer) {
         this.computer = computer;
         engine.getContext().setWriter(stringWriter);
@@ -100,5 +99,7 @@ public class JavaScriptProgram {
         }
     }
 
-
+    public String getProgram() {
+        return program;
+    }
 }
