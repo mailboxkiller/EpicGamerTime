@@ -6,6 +6,7 @@ import dev.trainwreck.computermod.common.computer.Computer;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
 
 public class RedstoneAPI implements IJavaScriptAPI {
 
@@ -52,6 +53,7 @@ public class RedstoneAPI implements IJavaScriptAPI {
         return (String[]) strings.toArray();
     }
 
+
     @Override
     public Computer getComputer() {
         return computer;
@@ -64,6 +66,6 @@ public class RedstoneAPI implements IJavaScriptAPI {
 
     @Override
     public String getAPIName() {
-        return "RedstoneAPI";
+        return "Redstone";
     }
 }

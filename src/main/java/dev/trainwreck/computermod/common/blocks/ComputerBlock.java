@@ -14,10 +14,12 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -48,11 +50,13 @@ public class ComputerBlock extends BlockTileBase {
         if (state.getBlock() != newState.getBlock()) {
             TileComputer tileComputer = (TileComputer) worldIn.getTileEntity(pos);
             Computer computer = tileComputer.getComputer();
+            tileComputer.remove();
             computer.abort(true);
 
             super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
     }
+
 
     @Override
     public int getStrongPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
@@ -83,14 +87,6 @@ public class ComputerBlock extends BlockTileBase {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add(COMPUTER_STATE);
-    }
-
-    @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        TileComputer tileComputer = (TileComputer) worldIn.getTileEntity(currentPos);
-        tileComputer.updateTiles(currentPos.offset(facing));
-
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
 

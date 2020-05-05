@@ -8,9 +8,12 @@ import javax.script.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class JavaScriptProgram {
     private Computer computer;
+    private Pattern ES6_VAR_PATTERN = Pattern.compile("(?:^|[\\s(;])(let|const)\\s+");
 
     private ScriptEngine engine = new NashornScriptEngineFactory().getScriptEngine("-strict", "--no-java", "--no-syntax-extensions");
 
@@ -33,7 +36,7 @@ public class JavaScriptProgram {
     public void setProgram(String program) {
         this.program = program;
         try {
-            compiledScript = ((Compilable) engine).compile(program);
+            compiledScript = ((Compilable) engine).compile(adaptES6Literals(program));
             compiledScript.eval();
             stringWriter.clear();
         } catch (ScriptException e) {
@@ -97,6 +100,17 @@ public class JavaScriptProgram {
         public Integer apply(String side) {
             return Arrays.asList(Computer.sideNames).indexOf(side);
         }
+    }
+
+    private String adaptES6Literals(String source) {
+        Matcher m = ES6_VAR_PATTERN.matcher(source);
+        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            StringBuffer buf = new StringBuffer(m.group());
+            buf.replace(m.start(1)-m.start(), m.end(1)-m.start(), "var");
+            m.appendReplacement(sb, buf.toString());
+        }
+        return m.appendTail(sb).toString();
     }
 
     public String getProgram() {

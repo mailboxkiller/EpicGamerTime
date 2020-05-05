@@ -17,13 +17,13 @@ public class TileComputer extends TileEntityUIBase implements ITickableTileEntit
         super(CmBlocks.COMPUTER_BLOCK.getTileEntityType(), IForgeContainerType.create(ComputerContainer::new));
         computer.getProgram().addApi(new RedstoneAPI());
         computer.getProgram().setProgram(
-                ""+
-                "function onTick(){\n"+
-                "   if(RedstoneAPI.getInput(\"left\")){\n" +
-                "        RedstoneAPI.setOutput(\"right\",false);\n" +
-                "   }else{\n" +
-                "       RedstoneAPI.setOutput(\"right\",true);\n" +
-                "   }\n" +
+                "const val = 0;"+
+                "function onTick(){"+
+                "   if(Redstone.getInput(\"left\")){" +
+                "        Redstone.setOutput(\"right\",false);" +
+                "   }else{" +
+                "       Redstone.setOutput(\"right\",true);" +
+                "   }" +
                 "}");
 
     }
@@ -35,7 +35,11 @@ public class TileComputer extends TileEntityUIBase implements ITickableTileEntit
         }
     }
 
-    public void updateTiles(BlockPos tilePos){
+    @Override
+    public void onChunkUnloaded() {
+        if(!world.isRemote){
+            computer.abort(true);
+        }
     }
 
     @Override

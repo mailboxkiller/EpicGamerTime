@@ -1,5 +1,8 @@
 package dev.trainwreck.computermod.common.computer;
 
+import dev.trainwreck.computermod.Reference;
+import dev.trainwreck.computermod.common.blocks.ComputerBlock;
+import dev.trainwreck.computermod.common.computer.apis.ITask;
 import dev.trainwreck.computermod.common.computer.javascript.JavaScriptProgram;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,29 +32,41 @@ public class Computer {
         this.tile = tile;
     }
 
+    public void run(){
+        program.runProgram();
+    }
+
     public void startComputer(){
         if(!(computerState == ComputerState.Off))return;
 
-        computerState = ComputerState.Starting;
+        updateState(ComputerState.Starting);
 
         computerThread = new Thread(() ->{
-           while (true){
-               synchronized (this){
-                   if(computerState == ComputerState.Stopping){
-                       computerState = ComputerState.Off;
-                       computerThread = null;
-                       return;
-                   }
-                   program.runProgram();
-                   if (onTick){
-                       program.runProgramOnTick();
-                       onTick = false;
-                   }
-               }
-           }
+            try {
+                Thread.sleep(1000);
+                updateState(ComputerState.Running);
+                while (true){
+                    synchronized (this) {
+                        if (computerState == ComputerState.Stopping || tile.isRemoved()) {
+                            Thread.sleep(1000);
+                            computerThread = null;
+                            updateState(ComputerState.Off);
+                            return;
+                        }
+                        program.runProgram();
+
+                        if (onTick) {
+                            program.runProgramOnTick();
+                            onTick = false;
+                        }
+                        Thread.sleep(5);
+                    }
+                }
+            } catch (InterruptedException e) {
+                Reference.LOGGER.warn("Computer Tread Interrupted");
+            }
         });
         computerThread.start();
-        computerState = ComputerState.Running;
     }
 
     public void setRedstoneOutput(int side, int value) {
@@ -80,10 +95,14 @@ public class Computer {
 
 
     public void abort(boolean hard){
+        if(computerThread==null)return;
         if(hard){
-            computerState = ComputerState.Stopping;
+            updateState(ComputerState.Off);
             computerThread.interrupt();
+        }else {
+            updateState(ComputerState.Stopping);
         }
+
     }
 
     public Direction getCorrectedSide(Direction side){
@@ -115,6 +134,16 @@ public class Computer {
 
     public JavaScriptProgram getProgram() {
         return program;
+    }
+
+    public void updateState(ComputerState state){
+        computerState = state;
+        //if(tile.isRemoved())return;
+        //tile.getWorld().setBlockState(tile.getPos(), tile.getBlockState().with(ComputerBlock.COMPUTER_STATE, state));
+    }
+
+    public TileEntity getTile() {
+        return tile;
     }
 
     public void setOnTick(boolean onTick) {
